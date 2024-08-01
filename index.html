@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cek Khodam Online</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        h1 {
+            color: #4a4a4a;
+            margin-bottom: 20px;
+        }
+        input {
+            width: 80%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 2px;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: 600;
+            color: #4a4a4a;
+        }
+        #khodamImage {
+            max-width: 200px;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #666;
+        }
+        .animate {
+            animation: fadeIn 0.5s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+      <h3> khodamku.wuaze.com</h3>
+        <h1>✨ Cek Khodam Online ✨ </h1>
+        <p>Yuk, cari tahu khodam yang menjagamu!</p>
+        <input type="text" id="nameInput" placeholder="Ketik namamu di sini">
+        <button onclick="checkKhodam()">Cek Sekarang!</button>
+        <div id="result"></div>
+        <img id="khodamImage" style="display: none;">
+        <button id="shareButton" style="display: none;" onclick="shareResult()">Bagikan ke Teman</button>
+        <div class="footer">
+            Dibuat dengan ❤️ oleh 
+            <a href="https://www.instagram.com/aqlrmdhnn_?igsh=eWI0bDR3bnE2YzEy">Aqil</a> untuk mazeluna aqisia aqram
+        </div>
+    </div>
+
+    <script>
+        const khodamNames = [
+            "Badarauhuy", 
+            "Doraemon",
+            "Kucing Pala Barbie",
+            "SpongeBob",
+            "Ular Tangga Api",
+            "Tuyul Miskin",
+            "Nyi Roro Kidal",
+            "Nenek Rambo",
+            "Macan Sange",
+            "Balmond",
+            "Sinchan",
+            "Pocong Ngesot",
+            "Buaya Darat Pink",
+            "Kyubi Ekor Cicak",
+            "Peju Kuda",
+            "Kuda Terbang"
+        ];
+
+        const khodamImages = {
+            "Badarauhuy": "./badarauhuy.jpeg",
+            "Doraemon": "./doraemon.jpeg",
+            "Kucing Pala Barbie": "./kucingpalabarbie.jpeg",
+            "SpongeBob": "./spongebob.jpeg",
+            "Ular Tangga Api": "./ulartanggaapi.jpeg",
+            "Tuyul Miskin": "./tuyulmiskin.jpeg",
+            "Nyi Roro Kidal": "./nyirorokidal.jpeg",
+            "Nenek Rambo": "./nenekrambo.jpeg",
+            "Macan Sange": "./macansange.jpeg",
+            "Balmond": "./balmond.jpeg",
+            "Sinchan": "./sinchan.jpg",
+            "Pocong Ngesot": "./pocongngesot.jpg",
+            "Buaya Darat Pink": "./buayadaratpink.jpeg",
+            "Kyubi Ekor Cicak": "./kyubiekorcicak.jpeg",
+            "Peju Kuda": "pejukuda.jpeg",
+            "Kuda Terbang": "./kudaterbang.jpeg"
+        };
+
+        function checkKhodam() {
+            const name = document.getElementById('nameInput').value;
+            if (name.trim() === '') {
+                alert('Ups! Jangan lupa tulis namamu dulu ya!');
+                return;
+            }
+
+            const khodamIndex = calculateKhodamIndex(name);
+            const khodam = khodamNames[khodamIndex];
+
+            const resultElement = document.getElementById('result');
+            resultElement.innerHTML = `Wow! Khodam kamu adalah: <span style="color: #764ba2; font-size: 1.2em;">${khodam}</span>`;
+            resultElement.classList.add('animate');
+            
+            const khodamImage = document.getElementById('khodamImage');
+            khodamImage.src = khodamImages[khodam];
+            khodamImage.style.display = 'inline-block';
+            khodamImage.classList.add('animate');
+
+            document.getElementById('shareButton').style.display = 'inline-block';
+        }
+
+        function calculateKhodamIndex(name) {
+            let total = 0;
+            for (let i = 0; i < name.length; i++) {
+                total += name.charCodeAt(i);
+            }
+            return total % khodamNames.length;
+        }
+
+        function shareResult() {
+            const khodam = document.getElementById('result').innerText;
+            const url = 'http://khodamku.wuaze.com';  // Ganti dengan URL yang relevan
+            const text = `Hasil cek khodam saya: ${khodam} - Coba cek khodam kamu di ${url}`;
+
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Cek Khodam Online',
+                    text: text,
+                    url: url
+                }).then(() => {
+                    console.log('Berhasil membagikan');
+                }).catch((error) => {
+                    console.log('Gagal membagikan', error);
+                });
+            } else {
+                alert('Browser Anda tidak mendukung fitur berbagi. Silakan salin teks berikut dan bagikan: ' + text);
+            }
+        }
+    </script>
+</body>
+</html>
